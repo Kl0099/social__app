@@ -10,13 +10,22 @@ cloudinary.config({
 })
 
 async function main() {
-  await mongoose.connect(process.env.MONGO_URL)
+  try {
+    await mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    console.log("Database connected")
+  } catch (error) {
+    console.error("Error connecting to MongoDB:", error.message)
+    // You may want to handle the error in a way that makes sense for your application
+    // For example, you might want to exit the process if the database connection fails
+    process.exit(1)
+  }
 }
-main().then((con) => console.log(`Database connected `))
-main().catch((err) => {
-  console.log(err)
-})
+
+main()
 
 app.listen(process.env.PORT, () => {
-  console.log(`server is listening on ${process.env.PORT}`)
+  console.log(`Server is listening on ${process.env.PORT}`)
 })

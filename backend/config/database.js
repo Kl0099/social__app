@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
+const mongoose = require("mongoose");
 
-// exports.connectDatabase = ()=>{
-//     mongoose.connect('mongodb://localhost:27017/SocialApp')
-//     .then(con => console.log(`database connected : ${con.connection.host}`))
-//     .catch(err => console.log(err))
-
-// }
+exports.connectDatabase = () => {
+  mongoose
+    .connect(process.env.MONGO_URL)
+    .then((con) => console.log(`Database Connected: ${con.connection.host}`))
+    .catch((err) => console.log(err));
+};

@@ -33,7 +33,9 @@
 const app = require("./app")
 const { connectDatabase } = require("./config/database")
 const cloudinary = require("cloudinary")
+const dotenv = require("dotenv")
 connectDatabase()
+dotenv.config()
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,

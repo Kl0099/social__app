@@ -44,6 +44,7 @@ exports.login = async (req, res) => {
     const { email, password } = req.body
 
     const user = await User.findOne({ email })
+      .maxTimeMS(15000)
       .select("+password")
       .populate("posts followers following")
     if (!user) {

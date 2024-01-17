@@ -4,9 +4,6 @@ const cors = require("cors")
 const path = require("path")
 
 const app = express()
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config({ path: "backend/config/config.env" })
-}
 
 // Middleware
 app.use(express.json({ limit: "50mb" })) // Adjust the limit as needed

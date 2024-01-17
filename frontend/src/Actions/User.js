@@ -104,8 +104,7 @@ export const getMyPosts = () => async (dispatch) => {
   }
 }
 
-export const getAllusers =
-  (name = "") =>
+export const getAllusers = (name = "") =>
   async (dispatch) => {
     try {
       dispatch({
@@ -123,7 +122,7 @@ export const getAllusers =
         payload: error.response.data.message,
       })
     }
-  }
+}
 
 export const registerUser =
   (name, email, password, avatar) => async (dispatch) => {

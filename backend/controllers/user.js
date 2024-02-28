@@ -2,6 +2,7 @@ const User = require("../models/User");
 const Post = require("../models/Post");
 
 const cloudinary = require("cloudinary");
+const { WrapAsync } = require("../utility/WrapAsync");
 
 exports.register = async (req, res) => {
   try {

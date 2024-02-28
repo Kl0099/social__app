@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react"
-import "./Post.css"
-import { Button, Dialog } from "@mui/material"
+import React, { useEffect, useState } from "react";
+import "./Post.css";
+import { Button, Dialog } from "@mui/material";
 import {
   MoreVert,
   Favorite,
@@ -8,28 +8,28 @@ import {
   ChatBubbleOutline,
   DeleteOutline,
   DeleteForever,
-} from "@mui/icons-material"
+} from "@mui/icons-material";
 // import {Avatar} from "@mui/icons-material"
-import { Avatar } from "@mui/material"
-import { Link } from "react-router-dom"
-import { Typography } from "@mui/material"
-import { useDispatch, useSelector } from "react-redux"
+import { Avatar } from "@mui/material";
+import { Link } from "react-router-dom";
+import { Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addCommentOnPost,
   deleteCommentOnPost,
   deletePost,
   likePost,
   updateMyCaption,
-} from "../../Actions/Post"
+} from "../../Actions/Post";
 import {
   getFollowingPosts,
   getMyPosts,
   getUserPosts,
   loadUser,
-} from "../../Actions/User"
-import User from "../User/User"
-import Commentcard from "../Commentcard/Commentcard"
-import { useParams } from "react-router-dom"
+} from "../../Actions/User";
+import User from "../User/User";
+import Commentcard from "../Commentcard/Commentcard";
+import { useParams } from "react-router-dom";
 
 const Post = ({
   postId,
@@ -44,62 +44,62 @@ const Post = ({
   isDelete = false,
   isHomePage = true,
 }) => {
-  const [liked, setLiked] = useState(false)
-  const [likesUser, setLikesUser] = useState(false)
-  const [commentValue, setCommentValue] = useState("")
-  const [commnetToggle, setCommnetToggle] = useState(false)
-  const [captionValue, setcaptionValue] = useState(caption)
-  const [captionToggle, setcaptionToggle] = useState(false)
-  const { user } = useSelector((state) => state.user)
+  const [liked, setLiked] = useState(false);
+  const [likesUser, setLikesUser] = useState(false);
+  const [commentValue, setCommentValue] = useState("");
+  const [commnetToggle, setCommnetToggle] = useState(false);
+  const [captionValue, setcaptionValue] = useState(caption);
+  const [captionToggle, setcaptionToggle] = useState(false);
+  const { user } = useSelector((state) => state.user);
 
-  const dispatch = useDispatch()
-  const params = useParams()
+  const dispatch = useDispatch();
+  const params = useParams();
   // console.log("isAccount", ":", isAccount)
   // console.log("isDeleted", ":", isDelete)
   // console.log("isHomepage", ":", isHomePage)
   const handlelike = async () => {
-    setLiked(!liked)
-    await dispatch(likePost(postId))
+    setLiked(!liked);
+    dispatch(likePost(postId));
     if (isAccount) {
-      dispatch(getMyPosts())
+      dispatch(getMyPosts());
     } else {
-      await dispatch(getFollowingPosts())
+      dispatch(getFollowingPosts());
       if (isHomePage) {
-        dispatch(getUserPosts(params.id))
+        dispatch(getUserPosts(params.id));
       }
     }
-  }
+  };
   const updateCaptionHandler = async (e) => {
-    e.preventDefault()
-    await dispatch(updateMyCaption(captionValue, postId))
-    dispatch(getMyPosts())
-  }
+    e.preventDefault();
+    dispatch(updateMyCaption(captionValue, postId));
+    dispatch(getMyPosts());
+  };
   const addCommenthandler = async (e) => {
     // console.log("adding comment handler");
-    e.preventDefault()
-    await dispatch(addCommentOnPost(postId, commentValue))
+    e.preventDefault();
+    dispatch(addCommentOnPost(postId, commentValue));
     if (isAccount) {
-      dispatch(getMyPosts())
+      dispatch(getMyPosts());
     } else {
-      await dispatch(getFollowingPosts())
+      dispatch(getFollowingPosts());
       if (isHomePage) {
-        dispatch(getUserPosts(params.id))
+        dispatch(getUserPosts(params.id));
       }
     }
-  }
+  };
   const deletPostHandler = async () => {
-    await dispatch(deletePost(postId))
-    dispatch(getMyPosts())
-    dispatch(loadUser())
-  }
+    dispatch(deletePost(postId));
+    dispatch(getMyPosts());
+    dispatch(loadUser());
+  };
   useEffect(() => {
     likes.forEach((item) => {
       // Check if user and item.user are not null or undefined
       if (item._id === user._id) {
-        setLiked(true)
+        setLiked(true);
       }
-    })
-  }, [likes, user._id])
+    });
+  }, [likes, user._id]);
 
   return (
     <div className="post">
@@ -113,6 +113,11 @@ const Post = ({
       <img
         src={postImage}
         alt="post"
+        width={"500px"}
+        height={"500px"}
+        style={{
+          objectFit: "contain",
+        }}
       />
       <div className="postDetails">
         <Avatar
@@ -149,7 +154,7 @@ const Post = ({
         </Button>
         <Button
           onClick={() => {
-            setCommnetToggle(!commnetToggle)
+            setCommnetToggle(!commnetToggle);
           }}
         >
           <ChatBubbleOutline />
@@ -263,7 +268,7 @@ const Post = ({
         </div>
       </Dialog>
     </div>
-  )
-}
+  );
+};
 
-export default Post
+export default Post;

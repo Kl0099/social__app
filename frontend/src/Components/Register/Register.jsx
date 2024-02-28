@@ -1,43 +1,43 @@
-import React, { useEffect, useState } from "react"
-import "./register.css"
-import { Avatar, Typography, Button } from "@mui/material"
-import { Link } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import { registerUser } from "../../Actions/User"
-import { useAlert } from "react-alert"
+import React, { useEffect, useState } from "react";
+import "./register.css";
+import { Avatar, Typography, Button } from "@mui/material";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../Actions/User";
+import { useAlert } from "react-alert";
 
 const Register = () => {
-  const [email, setEmail] = useState("")
-  const [avatar, setAvatar] = useState("")
-  const [name, setName] = useState("")
-  const [password, setPassword] = useState("")
-  const dispatch = useDispatch()
-  const alert = useAlert()
-  const { loading, error } = useSelector((state) => state.user)
+  const [email, setEmail] = useState("");
+  const [avatar, setAvatar] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const alert = useAlert();
+  const { loading, error } = useSelector((state) => state.user);
   const handleImageChange = (e) => {
-    const file = e.target.files[0]
+    const file = e.target.files[0];
 
-    const Reader = new FileReader()
-    Reader.readAsDataURL(file)
+    const Reader = new FileReader();
+    Reader.readAsDataURL(file);
 
     Reader.onload = () => {
       if (Reader.readyState === 2) {
-        setAvatar(Reader.result)
+        setAvatar(Reader.result);
       }
-    }
-  }
+    };
+  };
 
   const submitHandler = (e) => {
-    e.preventDefault()
-    dispatch(registerUser(name, email, password, avatar))
-  }
+    e.preventDefault();
+    dispatch(registerUser(name, email, password, avatar));
+  };
   useEffect(() => {
     if (error) {
-      alert.error(error)
-      console.log(error)
-      dispatch({ type: "clearError" })
+      alert.error(error);
+      console.log(error);
+      dispatch({ type: "clearError" });
     }
-  }, [dispatch, error, alert])
+  }, [dispatch, error, alert]);
 
   return (
     <div className="register">
@@ -58,7 +58,7 @@ const Register = () => {
           sx={{ height: "10vmax", width: "10vmax" }}
         />
         <input
-          required
+          // required
           type="file"
           accept="image/*"
           onChange={handleImageChange}
@@ -70,7 +70,7 @@ const Register = () => {
           placeholder="name"
           value={name}
           onChange={(e) => {
-            setName(e.target.value)
+            setName(e.target.value);
           }}
         />
         <input
@@ -80,7 +80,7 @@ const Register = () => {
           placeholder="Enter your email"
           required
           onChange={(e) => {
-            setEmail(e.target.value)
+            setEmail(e.target.value);
           }}
         />
         <input
@@ -90,7 +90,7 @@ const Register = () => {
           placeholder="password"
           required
           onChange={(e) => {
-            setPassword(e.target.value)
+            setPassword(e.target.value);
           }}
         />
         <Link to="/">
@@ -104,7 +104,7 @@ const Register = () => {
         </Button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
